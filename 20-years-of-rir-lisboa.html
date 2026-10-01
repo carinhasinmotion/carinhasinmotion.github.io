@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20 Years of RIR Lisboa — Bruno Carinhas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #080808;
+    --dark: #101010;
+    --panel: #141414;
+    --border: rgba(255,255,255,0.07);
+    --white: #f5f5f0;
+    --grey: #888;
+    --accent: #1900FF;
+    --accent-glow: rgba(25,0,255,0.35);
+    --accent-faint: rgba(25,0,255,0.04);
+    --accent-rgb: 25,0,255;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--white);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s, border-color 0.3s;
+  }
+
+  /* ============ NAV ============ */
+   /* ============ NAV ============ */
+  nav.top-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 60px;
+    --nav-extracted-color: rgba(4, 0, 20, 0.97);
+    transition: background 0.6s ease;
+    /* Nas páginas de portfolio a nav está sempre visível */
+  }
+  nav.top-nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      var(--nav-extracted-color) 0%,
+      color-mix(in srgb, var(--nav-extracted-color) 70%, transparent) 80%,
+      transparent 100%
+    );
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+
+  /* Logo imagem */
+  .nav-logo {
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+  }
+  .nav-logo-img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* Links desktop */
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    position: relative;
+    z-index: 1;
+  }
+  .nav-links a {
+    color: var(--grey);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--white); }
+  .nav-links a:hover::after,
+  .nav-links a.active::after { width: 100%; }
+  .nav-links .sep { color: rgba(255,255,255,0.2); pointer-events: none; }
+
+  /* Botão hamburger (só aparece em mobile) */
+  .nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: none;
+  position: fixed;
+  top: 22px;
+  right: 28px;
+  z-index: 103;
+  padding: 4px;
+}
+  .nav-hamburger span {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: var(--white);
+    transition: transform 0.35s ease, opacity 0.35s ease, width 0.35s ease;
+    transform-origin: center;
+  }
+  .nav-hamburger span:nth-child(3) {
+    width: 60%;
+    margin-left: auto;
+  }
+  /* Estado aberto — anima para X */
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 100%; }
+
+  /* Menu fullscreen mobile */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 101;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--nav-extracted-color);
+    backdrop-filter: blur(18px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+	padding-top: 80px;
+  }
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 10vw, 64px);
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.25);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.3s ease, transform 0.3s ease;
+    transform: translateY(12px);
+    line-height: 1.1;
+  }
+  .mobile-menu.open a { transform: translateY(0); }
+  .mobile-menu a:hover,
+  .mobile-menu a.active { color: var(--white); }
+  .mobile-menu a.active::after {
+    content: ' •';
+	color: var(--accent);
+	font-size: 1em;
+	vertical-align: baseline;
+  }
+  .mobile-menu-footer {
+    position: absolute;
+    bottom: 40px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.2);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+  }
+
+  /* Breakpoint mobile */
+  @media (max-width: 768px) {
+    nav.top-nav { padding: 22px 28px; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    .nav-logo-img { height: 28px; }
+  }
+
+  /* ============ HEADER ============ */
+  .project-header {
+    padding: 160px 60px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    transition: gap 0.3s, opacity 0.3s;
+    opacity: 0.8;
+  }
+  .back-link:hover { gap: 12px; opacity: 1; }
+  .back-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+  .project-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 8vw, 100px);
+    letter-spacing: 0.05em;
+    line-height: 0.95;
+    margin-bottom: 40px;
+    /* Blue gradient like the design */
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent) 50%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 0.9s ease both;
+  }
+
+  .project-meta {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+  .meta-item label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 6px;
+  }
+  .meta-item span {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  .project-desc {
+    max-width: 580px;
+    color: rgba(245,245,240,0.6);
+    line-height: 1.9;
+    font-size: 13px;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+
+  /* ============ HERO MEDIA ============ */
+  .project-hero-media {
+    width: 100%;
+    background: var(--panel);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Video embed */
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    background: #000;
+  }
+  .video-wrap iframe,
+  .video-wrap video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* ============ PROJECT BODY ============ */
+  .project-body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 100px 60px;
+  }
+
+  .project-body h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--white);
+  }
+  .project-body p {
+    color: rgba(245,245,240,0.65);
+    line-height: 1.9;
+    margin-bottom: 48px;
+  }
+
+  .highlights-title {
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 2.5vw, 34px);
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--white);
+  }
+  .highlights-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 80px;
+  }
+  .highlights-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    color: rgba(245,245,240,0.7);
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .highlights-list li::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--accent-glow);
+    flex-shrink: 0;
+    margin-top: 8px;
+  }
+
+  /* ============ IMAGE GALLERY ============ */
+  .gallery {
+    padding: 0 60px 100px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .gallery-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: block;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+  }
+  .gallery-grid.full { grid-template-columns: 1fr; }
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    background: var(--panel);
+    aspect-ratio: 16/9;
+    cursor: none;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+    filter: brightness(0.9);
+    display: block;
+  }
+  .gallery-item:hover img { transform: scale(1.04); filter: brightness(1); }
+
+  /* Placeholder for gallery images without src */
+  .gallery-placeholder {
+    width: 100%; height: 100%;
+    background: var(--panel);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.1);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+  }
+
+  /* ============ CTA ============ */
+  .project-cta {
+    text-align: center;
+    padding: 120px 60px;
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .project-cta::before {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .project-cta h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 300;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .project-cta p {
+    color: var(--grey);
+    margin-bottom: 40px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 15px;
+    position: relative;
+  }
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 36px;
+    background: var(--accent);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    position: relative;
+  }
+  .btn-cta:hover {
+    background: #1200cc;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px var(--accent-glow);
+  }
+
+  /* ============ NEXT PROJECT NAV ============ */
+  nav.project-nav {
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    border-top: 1px solid var(--border);
+    background: var(--black);
+    top: auto;
+    left: auto;
+    right: auto;
+    z-index: auto;
+    padding: 0;
+    backdrop-filter: none;
+    flex-direction: unset;
+    justify-content: unset;
+    align-items: unset;
+  }
+  nav.project-nav::before { display: none; }
+
+  .project-nav-item {
+    padding: 48px 60px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.4s;
+    position: relative;
+    overflow: hidden;
+    min-height: 180px;
+  }
+  .project-nav-item:first-child { border-right: 1px solid var(--border); }
+
+  /* Thumbnail background that reveals on hover */
+  .project-nav-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--thumb);
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity 0.5s ease, transform 0.6s ease;
+    z-index: 0;
+  }
+  /* overlay de gradiente hover — controlado por JS (.nav-thumb-overlay) */
+  .project-nav-item::before { display: none; }
+  .project-nav-item:hover::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .project-nav-item:hover { background: transparent; }
+
+  /* Text sits above the thumbnail */
+  .project-nav-item .nav-dir,
+  .project-nav-item .nav-title,
+  .project-nav-item .nav-client { position: relative; z-index: 2; }
+
+  .project-nav-item .nav-dir {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--grey);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s;
+  }
+  .project-nav-item:hover .nav-dir { color: rgba(255,255,255,0.7); }
+  .project-nav-item:last-child .nav-dir { justify-content: flex-end; }
+  .project-nav-item .nav-dir svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+  .project-nav-item .nav-title {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 2vw, 28px);
+    font-weight: 300;
+    color: var(--white);
+    transition: color 0.3s;
+  }
+  .project-nav-item:last-child .nav-title { text-align: right; }
+  .project-nav-item:hover .nav-title { color: var(--accent); }
+
+  .project-nav-item .nav-client {
+    font-size: 10px;
+    color: var(--grey);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .project-nav-item:last-child .nav-client { text-align: right; }
+  .project-nav-item:hover .nav-client { color: rgba(255,255,255,0.5); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 60px;
+    display: flex;
+    justify-content: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.1em;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav class="top-nav">
+  <a href="index.html" class="nav-logo">
+    <img src="Index/logo.png" alt="Bruno Carinhas" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="index.html#portfolio" class="active">Portfolio</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- Menu fullscreen mobile -->
+<div class="mobile-menu" role="dialog" aria-modal="true">
+  <a href="index.html">Home</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#portfolio" class="active">Portfolio</a>
+  <a href="index.html#contact">Contact</a>
+  <span class="mobile-menu-footer">Bruno Carinhas © 2025</span>
+</div>
+
+<!-- PROJECT HEADER -->
+<header class="project-header">
+  <a href="index.html#portfolio" class="back-link">
+    <svg viewBox="0 0 14 14"><polyline points="9,2 4,7 9,12"/></svg>
+    Back to Portfolio
+  </a>
+
+  <h1 class="project-title">20 Years of RIR Lisboa</h1>
+
+  <div class="project-meta">
+    <div class="meta-item">
+      <label>Client</label>
+      <span>Rock in Rio</span>
+    </div>
+    <div class="meta-item">
+      <label>Role</label>
+      <span>Motion Designer</span>
+    </div>
+    <div class="meta-item">
+      <label>Year</label>
+      <span>2024</span>
+    </div>
+  </div>
+
+  <p class="project-desc">A commemorative show celebrating 20 years of Rock in Rio Lisboa, using large-scale video projection on the main stage to revisit key moments from the festival’s two decades of history.</p>
+</header>
+
+<!-- HERO VIDEO -->
+<div class="project-hero-media reveal">
+  <div class="video-wrap">
+    <!--
+      VÍDEO DO PROJETO
+      Opção 1 — YouTube:
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=0&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      Opção 2 — Ficheiro local:
+        <video controls><source src="elum-dashboard.mp4" type="video/mp4"></video>
+    -->
+    <iframe
+      src="https://www.youtube.com/embed/VIDEO_ID_RIR20?rel=0&modestbranding=1"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+</div>
+
+<!-- PROJECT OVERVIEW -->
+<section class="project-body reveal">
+  <h2>Project Overview</h2>
+  <p>Created for Rock in Rio Lisboa’s 20th anniversary, the show looked back at the festival’s history through projected visual content across the main stage. As part of the motion design team, I developed visual layouts and animated sequences for different moments of the show, contributing to a large-scale production designed around the stage and its projection surface.</p>
+
+  <h3 class="highlights-title">Key Highlights</h3>
+  <ul class="highlights-list">
+    <li>Motion design for Rock in Rio Lisboa’s 20th anniversary show</li>
+    <li>Developed layouts and animated sequences for the main stage</li>
+    <li>Content created for large-scale video projection</li>
+    <li>Part of a show revisiting two decades of the festival’s history</li>
+  </ul>
+</section>
+
+<!-- IMAGE GALLERY -->
+<section class="gallery">
+  <span class="gallery-label reveal">Project Images</span>
+
+  <div class="gallery-grid full reveal">
+    <div class="gallery-item">
+      <img src="Portfolio/20-years-of-rir-lisboa/rir20-01.jpg" alt="20 Years of RIR Lisboa — Main Visual">
+    </div>
+  </div>
+
+  <br>
+
+  <div class="gallery-grid reveal reveal-delay-1">
+    <div class="gallery-item">
+      <img src="Portfolio/20-years-of-rir-lisboa/rir20-02.jpg" alt="20 Years of RIR Lisboa — Detail">
+    </div>
+    <div class="gallery-item">
+      <img src="Portfolio/20-years-of-rir-lisboa/rir20-03.jpg" alt="20 Years of RIR Lisboa — Animation">
+    </div>
+  </div>
+
+  <br>
+
+  <div class="gallery-grid reveal reveal-delay-2">
+    <div class="gallery-item">
+      <img src="Portfolio/20-years-of-rir-lisboa/rir20-04.jpg" alt="20 Years of RIR Lisboa — Frame">
+    </div>
+    <div class="gallery-item">
+      <img src="Portfolio/20-years-of-rir-lisboa/rir20-05.jpg" alt="20 Years of RIR Lisboa — Mood">
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="project-cta reveal">
+  <h2>Interested in working together?</h2>
+  <p>Let's discuss your next creative project and explore how I can help bring your vision to life.</p>
+  <a href="index.html#contact" class="btn-cta">Get In Touch</a>
+</section>
+
+<!-- PREV / NEXT PROJECT NAV -->
+<nav class="project-nav">
+  <a href="championship-celebrations.html" class="project-nav-item" style="--thumb: url('Portfolio/championship-celebrations/cc-01.jpg')">
+    <span class="nav-dir">
+      <svg viewBox="0 0 14 14"><polyline points="9,2 4,7 9,12"/></svg>
+      Previous
+    </span>
+    <span class="nav-title">Championship Celebrations</span>
+    <span class="nav-client">Sporting CP</span>
+  </a>
+  <a href="lisbon-under-stars.html" class="project-nav-item" style="--thumb: url('Portfolio/lisbon-under-stars/lus-01.jpg')">
+    <span class="nav-dir">
+      Next
+      <svg viewBox="0 0 14 14"><polyline points="5,2 10,7 5,12"/></svg>
+    </span>
+    <span class="nav-title">Lisbon Under Stars</span>
+    <span class="nav-client">Ocubo</span>
+  </a>
+</nav>
+
+<footer>
+  <p>© 2026 <a href="index.html">Bruno Carinhas</a>. All rights reserved.</p>
+</footer>
+
+<script>
+// ── COR DINÂMICA DA IMAGEM PRINCIPAL ──────────────────────────
+  // ⚠️  Ajusta os selectores abaixo à estrutura da tua página.
+  //     O primeiro que der match é o que vai ser usado.
+  (function () {
+    const heroImg =
+      document.querySelector('.gallery-item img') ||
+      document.querySelector('.gallery-item')       ||
+      document.querySelector('header img')      ||
+      document.querySelector('section:first-of-type img') ||
+      document.querySelector('img[class*="hero"]')  ||
+      document.querySelector('img[class*="main"]');
+
+    if (!heroImg) return;
+
+    function applyNavColor(img) {
+      try {
+        const canvas = document.createElement('canvas');
+        // Lê apenas uma faixa estreita do topo da imagem
+        canvas.width  = 100;
+        canvas.height = 20;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, 100, 20);
+        const data = ctx.getImageData(0, 0, 100, 20).data;
+
+        let r = 0, g = 0, b = 0, count = 0;
+        for (let i = 0; i < data.length; i += 16) {
+          r += data[i];
+          g += data[i + 1];
+          b += data[i + 2];
+          count++;
+        }
+        r = Math.round(r / count);
+        g = Math.round(g / count);
+        b = Math.round(b / count);
+
+        // Escurece 75% para garantir contraste
+        const darken = 0.25;
+        r = Math.round(r * darken);
+        g = Math.round(g * darken);
+        b = Math.round(b * darken);
+
+        document.querySelector('nav.top-nav').style.setProperty(
+          '--nav-extracted-color',
+          `rgba(${r}, ${g}, ${b}, 0.97)`
+        );
+      } catch (e) {
+        // Erro CORS — mantém a cor escura padrão (fallback seguro)
+      }
+    }
+
+    if (heroImg.complete && heroImg.naturalWidth) {
+      applyNavColor(heroImg);
+    } else {
+      heroImg.addEventListener('load', () => applyNavColor(heroImg));
+    }
+
+    // Observa se a imagem for substituída dinamicamente
+    const observer = new MutationObserver(() => {
+      if (heroImg.complete) applyNavColor(heroImg);
+    });
+    observer.observe(heroImg, { attributes: true, attributeFilter: ['src'] });
+  })();
+  // ── FIM COR DINÂMICA ───────────────────────────────────────────
+
+
+  // ── NAV HAMBURGER ──────────────────────────────────────────
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  // Fechar ao clicar num link do menu mobile
+  document.querySelectorAll('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+      document.body.style.overflow = '';
+    });
+  });
+  // ── FIM NAV HAMBURGER ──────────────────────────────────────
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+      ring.style.borderColor = `rgba(${currentR},${currentG},${currentB},0.6)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.borderColor = 'rgba(255,255,255,0.4)';
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ============================================================
+  // ADAPTIVE COLOR — extrai a cor dominante da imagem principal
+  // e aplica a toda a página via CSS variables
+  // ============================================================
+
+  let currentR = 25, currentG = 0, currentB = 255; // fallback = azul original
+
+  function extractDominantColor(imgEl) {
+    const canvas = document.createElement('canvas');
+    const SIZE = 80; // amostra pequena — mais rápido
+    canvas.width = SIZE; canvas.height = SIZE;
+    const ctx = canvas.getContext('2d');
+
+    try {
+      ctx.drawImage(imgEl, 0, 0, SIZE, SIZE);
+      const data = ctx.getImageData(0, 0, SIZE, SIZE).data;
+
+      // Agrupa pixels em "buckets" de cor e encontra o mais frequente
+      // Ignora pixels muito escuros, muito claros ou dessaturados
+      const buckets = {};
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i], g = data[i+1], b = data[i+2];
+
+        // Calcula luminosidade e saturação
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        const lum = (max + min) / 2;
+        const sat = max === min ? 0 : (max - min) / (lum > 127 ? 510 - max - min : max + min);
+
+        // Ignora pretos, brancos e cinzentos
+        if (lum < 30 || lum > 220 || sat < 0.25) continue;
+
+        // Quantiza para reduzir variações
+        const qr = Math.round(r / 32) * 32;
+        const qg = Math.round(g / 32) * 32;
+        const qb = Math.round(b / 32) * 32;
+        const key = `${qr},${qg},${qb}`;
+        buckets[key] = (buckets[key] || 0) + 1;
+      }
+
+      // Encontra o bucket mais popular
+      let best = null, bestCount = 0;
+      for (const [key, count] of Object.entries(buckets)) {
+        if (count > bestCount) { bestCount = count; best = key; }
+      }
+
+      if (!best) return; // sem cor dominante clara, mantém o padrão
+
+      const [r, g, b] = best.split(',').map(Number);
+      applyAccentColor(r, g, b);
+
+    } catch(e) {
+      // CORS — imagem de outro domínio, ignora silenciosamente
+      console.warn('Adaptive color: imagem bloqueada por CORS, a usar cor padrão.');
+    }
+  }
+
+  function applyAccentColor(r, g, b) {
+    currentR = r; currentG = g; currentB = b;
+
+    // Boost de saturação/vivacidade — garante que a cor é viva
+    const max = Math.max(r, g, b);
+    const factor = max > 0 ? Math.min(255 / max, 2.2) : 1;
+    const vr = Math.min(255, Math.round(r * factor));
+    const vg = Math.min(255, Math.round(g * factor));
+    const vb = Math.min(255, Math.round(b * factor));
+
+    const accent      = `rgb(${vr},${vg},${vb})`;
+    const accentGlow  = `rgba(${vr},${vg},${vb},0.35)`;
+    const accentFaint = `rgba(${vr},${vg},${vb},0.08)`;
+    const accentHover = `rgba(${vr},${vg},${vb},0.6)`;
+
+    const root = document.documentElement;
+    root.style.setProperty('--accent',       accent);
+    root.style.setProperty('--accent-glow',  accentGlow);
+    root.style.setProperty('--accent-faint', accentFaint);
+    root.style.setProperty('--accent-rgb',   `${vr},${vg},${vb}`);
+
+    // Actualiza inline styles que usam a cor hardcoded
+    // (cursor ring, btn-cta shadow, etc.)
+    document.querySelectorAll('.btn-cta').forEach(el => {
+      el.style.background = accent;
+      el.addEventListener('mouseenter', () => {
+        el.style.boxShadow = `0 8px 32px ${accentGlow}`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.boxShadow = '';
+      });
+    });
+
+    // Título gradiente com a nova cor
+    const title = document.querySelector('.project-title');
+    if (title) {
+      title.style.backgroundImage = `linear-gradient(135deg,
+        hsl(${rgbToHue(vr,vg,vb)}, 80%, 70%) 0%,
+        rgb(${vr},${vg},${vb}) 50%,
+        hsl(${(rgbToHue(vr,vg,vb)+40)%360}, 70%, 75%) 100%)`;
+    }
+
+    console.log(`🎨 Cor dominante aplicada: rgb(${vr},${vg},${vb})`);
+  }
+
+  function rgbToHue(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    const max = Math.max(r,g,b), min = Math.min(r,g,b);
+    let h = 0;
+    if (max !== min) {
+      const d = max - min;
+      if      (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+      else if (max === g) h = ((b - r) / d + 2) / 6;
+      else                h = ((r - g) / d + 4) / 6;
+    }
+    return Math.round(h * 360);
+  }
+
+  // Observa a primeira imagem real da galeria (quando for adicionada)
+  function watchForImage() {
+    const imgs = document.querySelectorAll('.gallery-item img, .project-hero-media img');
+    for (const img of imgs) {
+      if (img.complete && img.naturalWidth > 0) {
+        extractDominantColor(img);
+        return;
+      }
+      img.addEventListener('load', () => extractDominantColor(img), { once: true });
+      return;
+    }
+    const mo = new MutationObserver(() => {
+      const img = document.querySelector('.gallery-item img');
+      if (img) {
+        mo.disconnect();
+        if (img.complete) extractDominantColor(img);
+        else img.addEventListener('load', () => extractDominantColor(img), { once: true });
+      }
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+  }
+
+  // ============================================================
+  // COR ADAPTATIVA para botões Previous / Next
+  // Carrega a thumbnail de cada um, extrai a cor dominante
+  // e aplica ao gradiente hover + título desse botão
+  // ============================================================
+
+  function extractColorFromUrl(url) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = 80; canvas.height = 80;
+        const ctx = canvas.getContext('2d');
+        try {
+          ctx.drawImage(img, 0, 0, 80, 80);
+          const data = ctx.getImageData(0, 0, 80, 80).data;
+          const buckets = {};
+          for (let i = 0; i < data.length; i += 4) {
+            const r = data[i], g = data[i+1], b = data[i+2];
+            const max = Math.max(r,g,b), min = Math.min(r,g,b);
+            const lum = (max + min) / 2;
+            const sat = max === min ? 0 : (max - min) / (lum > 127 ? 510 - max - min : max + min);
+            if (lum < 30 || lum > 220 || sat < 0.25) continue;
+            const key = `${Math.round(r/32)*32},${Math.round(g/32)*32},${Math.round(b/32)*32}`;
+            buckets[key] = (buckets[key] || 0) + 1;
+          }
+          let best = null, bestCount = 0;
+          for (const [key, count] of Object.entries(buckets)) {
+            if (count > bestCount) { bestCount = count; best = key; }
+          }
+          if (!best) return resolve(null);
+          const [r, g, b] = best.split(',').map(Number);
+          // Boost vivacidade
+          const mx = Math.max(r, g, b);
+          const f = mx > 0 ? Math.min(255 / mx, 2.2) : 1;
+          resolve({
+            r: Math.min(255, Math.round(r * f)),
+            g: Math.min(255, Math.round(g * f)),
+            b: Math.min(255, Math.round(b * f))
+          });
+        } catch(e) { resolve(null); }
+      };
+      img.onerror = () => resolve(null);
+      img.src = url;
+    });
+  }
+
+  function applyNavItemColor(navItem, color) {
+    if (!color) return;
+    const { r, g, b } = color;
+    const rgb = `${r},${g},${b}`;
+    const isNext = navItem === navItem.parentElement.lastElementChild;
+
+    // Gradiente hover escuro com toque da cor dominante
+    const grad = isNext
+      ? `linear-gradient(to left,  rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(${rgb},0.15) 100%)`
+      : `linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 50%, rgba(${rgb},0.15) 100%)`;
+
+    // Guarda no elemento para usar no hover via JS (CSS var local)
+    navItem.style.setProperty('--item-grad', grad);
+    navItem.style.setProperty('--item-rgb', rgb);
+    navItem.style.setProperty('--item-color', `rgb(${rgb})`);
+
+    // Aplica título colorido
+    const title = navItem.querySelector('.nav-title');
+    if (title) {
+      title.style.transition = 'color 0.4s';
+      navItem.addEventListener('mouseenter', () => {
+        title.style.color = `rgb(${rgb})`;
+      });
+      navItem.addEventListener('mouseleave', () => {
+        title.style.color = '';
+      });
+    }
+  }
+
+  // Substitui o ::before CSS por um elemento real para controlar via JS
+  document.querySelectorAll('.project-nav-item').forEach(item => {
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-thumb-overlay';
+    overlay.style.cssText = `
+      position: absolute; inset: 0; z-index: 1;
+      opacity: 0; transition: opacity 0.5s ease;
+      pointer-events: none;
+    `;
+    item.prepend(overlay);
+
+    item.addEventListener('mouseenter', () => {
+      overlay.style.opacity = '1';
+      overlay.style.background = item.style.getPropertyValue('--item-grad') ||
+        (item === item.parentElement.lastElementChild
+          ? 'linear-gradient(to left,  rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%)'
+          : 'linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 100%)');
+    });
+    item.addEventListener('mouseleave', () => { overlay.style.opacity = '0'; });
+  });
+
+  // Corre o color pick para cada nav item
+  async function colorizeNavItems() {
+    const items = document.querySelectorAll('.project-nav-item');
+    for (const item of items) {
+      const thumbUrl = item.style.getPropertyValue('--thumb')
+        ?.replace(/url\(['"]?/, '').replace(/['"]?\)/, '').trim();
+      if (!thumbUrl) continue;
+      const color = await extractColorFromUrl(thumbUrl);
+      applyNavItemColor(item, color);
+      console.log(`🎨 Nav "${item.querySelector('.nav-title')?.textContent}": rgb(${color?.r},${color?.g},${color?.b})`);
+    }
+  }
+
+  watchForImage();
+  colorizeNavItems();
+
+</script>
+</body>
+</html>
