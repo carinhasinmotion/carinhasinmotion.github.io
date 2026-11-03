@@ -51,14 +51,14 @@ def optimize_hero() -> None:
     ]).decode())
     stream = meta["streams"][0]
     width, height = int(stream["width"]), int(stream["height"])
-    target_w = min(width, 1600)
+    target_w = min(width, 1280)
     target_w -= target_w % 2
     target_h = max(2, round(height * target_w / width / 2) * 2)
     temp = original.with_name("hero-optimized.mp4")
     args = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
             "-i", str(original), "-an", "-vf", f"scale={target_w}:{target_h}",
             "-r", "30", "-c:v", "libx264", "-preset", "fast",
-            "-crf", "26", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
+            "-crf", "29", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
             str(temp)]
     try:
         subprocess.run(args, check=True, timeout=540)
