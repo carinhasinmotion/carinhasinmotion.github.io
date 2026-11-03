@@ -622,6 +622,23 @@ html{overflow-x:clip}body{max-width:100%;overflow-x:clip}img,svg,video,iframe{ma
 @media(max-width:768px){.project-meta,.project-body,.gallery{min-width:0}.project-title{hyphens:auto;max-width:100%}.project-nav-item{overflow-wrap:anywhere}}
 @media(max-width:480px){.project-meta{gap:12px 20px}.project-desc{font-size:13px}.gallery-item{min-width:0}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Portfolio legal attributions and click-to-load third-party video */
+.ocubo-credit{max-width:1030px;margin:10px auto 64px;padding:22px 28px;border-top:1px solid rgba(255,255,255,.14);color:rgba(245,245,240,.65);font-size:11px;line-height:1.9}
+.ocubo-credit p{margin:0}
+.legal-footer-links{display:flex;gap:11px;justify-content:center;align-items:center;flex-wrap:wrap;padding:11px 12px 0;font-size:10px;letter-spacing:.02em}
+.legal-footer-links a{color:#bcb9e7;text-decoration:none}
+.legal-footer-links a:hover{text-decoration:underline}
+footer{flex-wrap:wrap;gap:6px}
+.external-video-guard{position:absolute;inset:0;background:#0a0a0e}
+.external-video-guard iframe[hidden], [hidden]{display:none!important}
+.external-video-prompt{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:20px;background:linear-gradient(125deg,#101019,#08080e)}
+.external-video-prompt p{max-width:520px;margin:0;color:#d0cfd5;font-size:12px;line-height:1.7}
+.external-video-prompt small a{color:#bcb9e7;font-size:10px}
+.load-external-video{border:1px solid #8b84e8;color:#fff;background:#1900ff;border-radius:2px;padding:11px 20px;cursor:pointer;font:inherit;font-size:11px;transition:background .2s}
+.load-external-video:hover{background:#3c28ff}
+.load-external-video:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media(max-width:768px){.ocubo-credit{margin:6px 20px 35px;padding:18px 3px}.external-video-prompt{gap:8px;padding:10px}.external-video-prompt p{font-size:10px;line-height:1.45}.load-external-video{padding:8px 12px}.external-video-prompt small a{font-size:9px}}
 </style>
 </head>
 <body>
@@ -698,11 +715,11 @@ html{overflow-x:clip}body{max-width:100%;overflow-x:clip}img,svg,video,iframe{ma
       Opção 2 — Ficheiro local:
         <video controls><source src="elum-dashboard.mp4" type="video/mp4"></video>
     -->
-    <iframe
-      src="https://www.youtube.com/embed/ejvPvfALh1c?si=A2sYbB_Zi9ibUh_h"
+    <div class="external-video-guard"><div class="external-video-prompt"><p data-pt-label="Este vídeo é disponibilizado por um serviço externo. Só será carregado quando escolheres continuar; a plataforma poderá utilizar cookies." data-en-label="This video is provided by an external service. It will load only when you choose to continue; the provider may use cookies.">Este vídeo é disponibilizado por um serviço externo. Só será carregado quando escolheres continuar; a plataforma poderá utilizar cookies.</p><button type="button" class="load-external-video" data-pt-label="Carregar vídeo" data-en-label="Load video">Carregar vídeo</button><small><a href="privacy-policy.html" data-pt-label="Ler a Política de Privacidade" data-en-label="Read the Privacy Policy">Ler a Política de Privacidade</a></small></div><iframe
+      data-video-src="https://www.youtube.com/embed/ejvPvfALh1c?si=A2sYbB_Zi9ibUh_h" hidden title="Project video" loading="lazy"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
-    ></iframe>
+    ></iframe></div>
   </div>
 </div>
 
@@ -780,9 +797,10 @@ html{overflow-x:clip}body{max-width:100%;overflow-x:clip}img,svg,video,iframe{ma
   </a>
 </nav>
 
+<aside class="ocubo-credit" aria-label="Créditos do projeto"><p data-pt-label="Projeto realizado enquanto integrava a equipa da OCUBO. Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados." data-en-label="Project developed while working as part of the OCUBO team. All images in this project are the property of OCUBO. All rights reserved.">Projeto realizado enquanto integrava a equipa da OCUBO. Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados.</p></aside>
 <footer>
   <p>© 2026 <a href="index.html">Bruno Carinhas</a>. All rights reserved.</p>
-</footer>
+<div class="legal-footer-links"><a href="privacy-policy.html" data-pt-label="Privacidade e Cookies" data-en-label="Privacy & Cookies">Privacidade e Cookies</a><span aria-hidden="true"> · </span><a href="legal-notice.html" data-pt-label="Aviso Legal" data-en-label="Legal Notice">Aviso Legal</a></div></footer>
 
 <script>
 // ── COR DINÂMICA DA IMAGEM PRINCIPAL ──────────────────────────
@@ -1172,6 +1190,32 @@ let currentLanguage='en';const bilingualNodes=[];
 function initProjectLanguage(){const capture=(node,pt)=>{if(node)bilingualNodes.push({node,en:node.textContent,pt});};capture(document.querySelector('.project-desc'),projectTranslations.desc);capture(document.querySelector('.project-body p'),projectTranslations.overview);document.querySelectorAll('.highlights-list li').forEach((node,i)=>capture(node,projectTranslations.bullets[i]||node.textContent));const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);const others=[];while(walker.nextNode())others.push(walker.currentNode);others.forEach(node=>{if(node.parentElement?.closest('h1,h2,h3,h4,h5,h6,.project-title,.project-name'))return;if(node.parentElement?.previousElementSibling?.textContent.trim()==='Role')return;if(bilingualNodes.some(x=>x.node.contains(node)))return;const t=node.nodeValue.trim(),pt=projectTranslations.common[t];if(pt!==undefined)bilingualNodes.push({node,en:node.nodeValue,pt:node.nodeValue.replace(t,pt)});});setLanguage('pt');}
 function setLanguage(lang){if(lang!=='pt'&&lang!=='en')return;currentLanguage=lang;bilingualNodes.forEach(x=>{if(x.node.nodeType===Node.TEXT_NODE)x.node.nodeValue=lang==='pt'?x.pt:x.en;else x.node.textContent=lang==='pt'?x.pt:x.en;});document.documentElement.lang=lang==='pt'?'pt-PT':'en';document.querySelectorAll('.lang-btn').forEach(b=>{b.classList.toggle('active',b.dataset.lang===lang);b.setAttribute('aria-pressed',String(b.dataset.lang===lang));});}
 initProjectLanguage();
+</script>
+<script>
+/* Language-aware legal copy and explicit opt-in for embedded third-party video. */
+(function(){
+ function updateNoticeLanguage(lang){
+   document.querySelectorAll('[data-pt-label][data-en-label]').forEach(el=>{
+     el.textContent=lang==='en'?el.getAttribute('data-en-label'):el.getAttribute('data-pt-label');
+   });
+ }
+ const baseSetLanguage=window.setLanguage;
+ if(typeof baseSetLanguage==='function'){
+   window.setLanguage=function(lang){baseSetLanguage(lang);updateNoticeLanguage(lang);}
+ }
+ updateNoticeLanguage(document.documentElement.lang==='en'?'en':'pt');
+ document.querySelectorAll('.external-video-guard').forEach(container=>{
+   const button=container.querySelector('.load-external-video');
+   const iframe=container.querySelector('iframe[data-video-src]');
+   const prompt=container.querySelector('.external-video-prompt');
+   if(!button||!iframe)return;
+   button.addEventListener('click',()=>{
+     iframe.setAttribute('src',iframe.getAttribute('data-video-src'));
+     iframe.hidden=false;
+     prompt.hidden=true;
+   });
+ });
+})();
 </script>
 </body>
 </html>
