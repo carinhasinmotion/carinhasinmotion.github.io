@@ -630,6 +630,10 @@ footer{flex-wrap:wrap;gap:6px}
 .load-external-video:hover{background:#3c28ff}
 .load-external-video:focus-visible{outline:2px solid #fff;outline-offset:3px}
 @media(max-width:768px){.ocubo-credit{margin:6px 20px 35px;padding:18px 3px}.external-video-prompt{gap:8px;padding:10px}.external-video-prompt p{font-size:10px;line-height:1.45}.load-external-video{padding:8px 12px}.external-video-prompt small a{font-size:9px}}
+
+.project-header > .ocubo-credit{display:block;max-width:930px;margin:-16px 0 32px;padding:12px 15px;border-top:0;border-left:2px solid var(--accent);background:rgba(255,255,255,.025);font-size:10px;line-height:1.65;color:rgba(245,245,240,.72)}
+.project-header > .ocubo-credit p{margin:0}
+@media(max-width:768px){.project-header > .ocubo-credit{margin:-12px 0 24px;padding:10px 12px;font-size:9px}}
 </style>
 </head>
 <body>
@@ -708,11 +712,11 @@ footer{flex-wrap:wrap;gap:6px}
       Opção 2 — Ficheiro local:
         <video controls><source src="elum-dashboard.mp4" type="video/mp4"></video>
     -->
-    <div class="external-video-guard"><div class="external-video-prompt"><p data-pt-label="Este vídeo é disponibilizado por um serviço externo. Só será carregado quando escolheres continuar; a plataforma poderá utilizar cookies." data-en-label="This video is provided by an external service. It will load only when you choose to continue; the provider may use cookies.">Este vídeo é disponibilizado por um serviço externo. Só será carregado quando escolheres continuar; a plataforma poderá utilizar cookies.</p><button type="button" class="load-external-video" data-pt-label="Carregar vídeo" data-en-label="Load video">Carregar vídeo</button><small><a href="privacy-policy.html" data-pt-label="Ler a Política de Privacidade" data-en-label="Read the Privacy Policy">Ler a Política de Privacidade</a></small></div><iframe
-      data-video-src="https://www.youtube.com/embed/VIDEO_ID_LGA?rel=0&modestbranding=1" hidden title="Project video" loading="lazy"
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/VIDEO_ID_LGA?rel=0&modestbranding=1" loading="lazy" title="Project video" referrerpolicy="strict-origin-when-cross-origin"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
-    ></iframe></div>
+    ></iframe>
   </div>
 </div>
 
@@ -737,7 +741,7 @@ footer{flex-wrap:wrap;gap:6px}
 
   <div class="gallery-grid full reveal">
     <div class="gallery-item">
-      <img src="Portfolio/le-grand-alegro/lga-01.jpg" alt="Le Grand Alegro — Main Visual">
+      <img src="Portfolio/le-grand-alegro/lga-01.jpg" alt="Le Grand Alegro — Main Visual" loading="lazy" decoding="async">
     </div>
   </div>
 
@@ -745,10 +749,10 @@ footer{flex-wrap:wrap;gap:6px}
 
   <div class="gallery-grid reveal reveal-delay-1">
     <div class="gallery-item">
-      <img src="Portfolio/le-grand-alegro/lga-02.jpg" alt="Le Grand Alegro — Detail">
+      <img src="Portfolio/le-grand-alegro/lga-02.jpg" alt="Le Grand Alegro — Detail" loading="lazy" decoding="async">
     </div>
     <div class="gallery-item">
-      <img src="Portfolio/le-grand-alegro/lga-03.jpg" alt="Le Grand Alegro — Animation">
+      <img src="Portfolio/le-grand-alegro/lga-03.jpg" alt="Le Grand Alegro — Animation" loading="lazy" decoding="async">
     </div>
   </div>
 
@@ -756,10 +760,10 @@ footer{flex-wrap:wrap;gap:6px}
 
   <div class="gallery-grid reveal reveal-delay-2">
     <div class="gallery-item">
-      <img src="Portfolio/le-grand-alegro/lga-04.jpg" alt="Le Grand Alegro — Frame">
+      <img src="Portfolio/le-grand-alegro/lga-04.jpg" alt="Le Grand Alegro — Frame" loading="lazy" decoding="async">
     </div>
     <div class="gallery-item">
-      <img src="Portfolio/le-grand-alegro/lga-05.jpg" alt="Le Grand Alegro — Mood">
+      <img src="Portfolio/le-grand-alegro/lga-05.jpg" alt="Le Grand Alegro — Mood" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -814,7 +818,7 @@ footer{flex-wrap:wrap;gap:6px}
     ring.style.top = ry + 'px';
     requestAnimationFrame(animateRing);
   }
-  animateRing();
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) animateRing();
 
   document.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('mouseenter', () => {

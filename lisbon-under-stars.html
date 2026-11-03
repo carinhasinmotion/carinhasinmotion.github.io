@@ -631,6 +631,10 @@ footer{flex-wrap:wrap;gap:6px}
 .load-external-video:hover{background:#3c28ff}
 .load-external-video:focus-visible{outline:2px solid #fff;outline-offset:3px}
 @media(max-width:768px){.ocubo-credit{margin:6px 20px 35px;padding:18px 3px}.external-video-prompt{gap:8px;padding:10px}.external-video-prompt p{font-size:10px;line-height:1.45}.load-external-video{padding:8px 12px}.external-video-prompt small a{font-size:9px}}
+
+.project-header > .ocubo-credit{display:block;max-width:930px;margin:-16px 0 32px;padding:12px 15px;border-top:0;border-left:2px solid var(--accent);background:rgba(255,255,255,.025);font-size:10px;line-height:1.65;color:rgba(245,245,240,.72)}
+.project-header > .ocubo-credit p{margin:0}
+@media(max-width:768px){.project-header > .ocubo-credit{margin:-12px 0 24px;padding:10px 12px;font-size:9px}}
 </style>
 </head>
 <body>
@@ -679,6 +683,7 @@ footer{flex-wrap:wrap;gap:6px}
   </a>
 
   <h1 class="project-title">Lisbon Under Stars</h1>
+  <aside class="ocubo-credit" aria-label="Créditos do projeto"><p data-pt-label="Projeto realizado enquanto integrava a equipa da OCUBO. Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados." data-en-label="Project developed while working as part of the OCUBO team. All images in this project are the property of OCUBO. All rights reserved.">Projeto realizado enquanto integrava a equipa da OCUBO. Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados.</p></aside>
 
   <div class="project-meta">
     <div class="meta-item">
@@ -708,11 +713,11 @@ footer{flex-wrap:wrap;gap:6px}
       Opção 2 — Ficheiro local:
         <video controls><source src="elum-dashboard.mp4" type="video/mp4"></video>
     -->
-    <div class="external-video-guard"><div class="external-video-prompt"><p data-pt-label="Este vídeo é disponibilizado por um serviço externo. Só será carregado quando escolheres continuar; a plataforma poderá utilizar cookies." data-en-label="This video is provided by an external service. It will load only when you choose to continue; the provider may use cookies.">Este vídeo é disponibilizado por um serviço externo. Só será carregado quando escolheres continuar; a plataforma poderá utilizar cookies.</p><button type="button" class="load-external-video" data-pt-label="Carregar vídeo" data-en-label="Load video">Carregar vídeo</button><small><a href="privacy-policy.html" data-pt-label="Ler a Política de Privacidade" data-en-label="Read the Privacy Policy">Ler a Política de Privacidade</a></small></div><iframe
-      data-video-src="https://www.youtube.com/embed/VIDEO_ID_LUS?rel=0&modestbranding=1" hidden title="Project video" loading="lazy"
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/VIDEO_ID_LUS?rel=0&modestbranding=1" loading="lazy" title="Project video" referrerpolicy="strict-origin-when-cross-origin"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
-    ></iframe></div>
+    ></iframe>
   </div>
 </div>
 
@@ -736,7 +741,7 @@ footer{flex-wrap:wrap;gap:6px}
 
   <div class="gallery-grid full reveal">
     <div class="gallery-item">
-      <img src="Portfolio/lisbon-under-stars/lus-01.jpg" alt="Lisbon Under Stars — Main Visual">
+      <img src="Portfolio/lisbon-under-stars/lus-01.jpg" alt="Lisbon Under Stars — Main Visual" loading="lazy" decoding="async">
     </div>
   </div>
 
@@ -744,10 +749,10 @@ footer{flex-wrap:wrap;gap:6px}
 
   <div class="gallery-grid reveal reveal-delay-1">
     <div class="gallery-item">
-      <img src="Portfolio/lisbon-under-stars/lus-02.jpg" alt="Lisbon Under Stars — Detail">
+      <img src="Portfolio/lisbon-under-stars/lus-02.jpg" alt="Lisbon Under Stars — Detail" loading="lazy" decoding="async">
     </div>
     <div class="gallery-item">
-      <img src="Portfolio/lisbon-under-stars/lus-03.jpg" alt="Lisbon Under Stars — Night Scene">
+      <img src="Portfolio/lisbon-under-stars/lus-03.jpg" alt="Lisbon Under Stars — Night Scene" loading="lazy" decoding="async">
     </div>
   </div>
 
@@ -755,10 +760,10 @@ footer{flex-wrap:wrap;gap:6px}
 
   <div class="gallery-grid reveal reveal-delay-2">
     <div class="gallery-item">
-      <img src="Portfolio/lisbon-under-stars/lus-04.jpg" alt="Lisbon Under Stars — Frame">
+      <img src="Portfolio/lisbon-under-stars/lus-04.jpg" alt="Lisbon Under Stars — Frame" loading="lazy" decoding="async">
     </div>
     <div class="gallery-item">
-      <img src="Portfolio/lisbon-under-stars/lus-05.jpg" alt="Lisbon Under Stars — Atmosphere">
+      <img src="Portfolio/lisbon-under-stars/lus-05.jpg" alt="Lisbon Under Stars — Atmosphere" loading="lazy" decoding="async">
     </div>
   </div>
 </section>
@@ -790,7 +795,6 @@ footer{flex-wrap:wrap;gap:6px}
   </a>
 </nav>
 
-<aside class="ocubo-credit" aria-label="Créditos do projeto"><p data-pt-label="Projeto realizado enquanto integrava a equipa da OCUBO. Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados." data-en-label="Project developed while working as part of the OCUBO team. All images in this project are the property of OCUBO. All rights reserved.">Projeto realizado enquanto integrava a equipa da OCUBO. Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados.</p></aside>
 <footer>
   <p>© 2026 <a href="index.html">Bruno Carinhas</a>. All rights reserved.</p>
 <div class="legal-footer-links"><a href="privacy-policy.html" data-pt-label="Privacidade e Cookies" data-en-label="Privacy & Cookies">Privacidade e Cookies</a><span aria-hidden="true"> · </span><a href="legal-notice.html" data-pt-label="Aviso Legal" data-en-label="Legal Notice">Aviso Legal</a></div></footer>
@@ -814,7 +818,7 @@ footer{flex-wrap:wrap;gap:6px}
     ring.style.top = ry + 'px';
     requestAnimationFrame(animateRing);
   }
-  animateRing();
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) animateRing();
 
   document.querySelectorAll('a, button').forEach(el => {
     el.addEventListener('mouseenter', () => {
