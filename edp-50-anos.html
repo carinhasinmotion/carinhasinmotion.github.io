@@ -962,6 +962,9 @@ footer.site-footer .legal-footer-links>a,footer.site-footer .legal-footer-links>
   function watchForImage() {
     const imgs = document.querySelectorAll('.gallery-item img, .project-hero-media img');
     for (const img of imgs) {
+      // Fetch the color reference immediately, even when the gallery is below the fold.
+      img.loading = 'eager';
+      img.fetchPriority = 'high';
       if (img.complete && img.naturalWidth > 0) {
         extractDominantColor(img);
         return;
