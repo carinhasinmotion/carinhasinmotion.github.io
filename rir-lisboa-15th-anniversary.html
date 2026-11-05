@@ -636,6 +636,12 @@ footer.site-footer .footer-copy{min-width:0;flex:0 1 auto}
 footer.site-footer .legal-footer-links{display:inline-flex;flex:0 0 auto;justify-content:center;align-items:baseline;gap:10px;white-space:nowrap}
 footer.site-footer .legal-footer-links>a,footer.site-footer .legal-footer-links>span{display:inline;align-self:baseline;margin:0;padding:0;line-height:inherit;font-size:inherit}
 @media(max-width:820px){footer.site-footer{flex-direction:column;align-items:center;gap:6px;padding:24px 14px}footer.site-footer .footer-copy,footer.site-footer .legal-footer-links{font-size:10px;letter-spacing:.025em}footer.site-footer .legal-footer-links{flex-wrap:wrap;white-space:normal}}
+
+/* Prominent employer attribution, with separate image-rights notice. */
+.project-header > .ocubo-project-affiliation{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px;margin:-14px 0 14px;color:var(--white);font-size:12px;line-height:1.65;font-weight:500}
+.ocubo-project-badge{display:inline-flex;align-items:center;justify-content:center;padding:5px 11px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:.12em;line-height:1.5;border-radius:2px;flex-shrink:0}
+.project-header > .ocubo-credit{margin:0 0 32px;padding:0;border:0;background:transparent;color:rgba(245,245,240,.55);font-size:10px;line-height:1.65}
+@media(max-width:768px){.project-header > .ocubo-project-affiliation{margin:-8px 0 12px;font-size:11px;gap:8px 10px}.project-header > .ocubo-credit{margin:0 0 24px;padding:0;font-size:9px}}
 </style>
 </head>
 <body>
@@ -684,16 +690,13 @@ footer.site-footer .legal-footer-links>a,footer.site-footer .legal-footer-links>
   </a>
 
   <h1 class="project-title">RIR Lisboa's 15th Anniversary</h1>
-  <aside class="ocubo-credit" aria-label="Créditos do projeto"><p data-pt-label="Projeto realizado enquanto integrava a equipa da OCUBO. Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados." data-en-label="Project developed while working as part of the OCUBO team. All images in this project are the property of OCUBO. All rights reserved.">Projeto realizado enquanto integrava a equipa da OCUBO. Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados.</p></aside>
+  <div class="ocubo-project-affiliation"><span class="ocubo-project-badge">OCUBO</span><span data-pt-label="Projeto desenvolvido enquanto integrava a equipa da OCUBO." data-en-label="Project developed while working as part of the OCUBO team.">Projeto desenvolvido enquanto integrava a equipa da OCUBO.</span></div>
+  <aside class="ocubo-credit" aria-label="Direitos das imagens"><p data-pt-label="Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados." data-en-label="All images in this project are the property of OCUBO. All rights reserved.">Todas as imagens deste projeto são propriedade da OCUBO. Todos os direitos reservados.</p></aside>
 
   <div class="project-meta">
     <div class="meta-item">
       <label>Client</label>
       <span>Rock In Rio</span>
-    </div>
-    <div class="meta-item">
-      <label data-pt-label="Cliente direto" data-en-label="Direct client">Direct client</label>
-      <span>OCUBO</span>
     </div>
     <div class="meta-item">
       <label>Role</label>
